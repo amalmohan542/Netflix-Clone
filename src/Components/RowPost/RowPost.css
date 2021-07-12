@@ -8,11 +8,26 @@
     padding:20px;
     overflow-x: scroll;
     overflow-y: hidden;
+    cursor: pointer;
+}
+
+.smallPoster{
+    max-height: 100px;
+    margin-right: 10px; 
+    cursor: pointer;
+}
+
+.smallPoster:hover{
+    transform: scale(1.1);
 }
 
 .poster{
-    max-height: 250px;
+    max-height: 200px;
     margin-right: 10px; 
+}
+
+.poster:hover{
+    transform: scale(1.1);
 }
 
 .posters::-webkit-scrollbar{
