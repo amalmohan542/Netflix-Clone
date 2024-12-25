@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import axios from "../../axios";
-import { imageURL,API_KEY } from "../../constants/constants";
+import { imageURL, API_KEY } from "../../constants/constants";
 import "./RowPost.css";
 
 function RowPost(props) {
   const [movies, setmovies] = useState([]);
   const [UrlId, setUrlId] = useState('')
-
+  const { url = "" } = props;
   const opts = {
     height: "390",
     width: "100%",
@@ -18,23 +18,21 @@ function RowPost(props) {
   };
 
   useEffect(() => {
-    axios.get(props.url).then((response) => {
-    //   console.log(response.data.results);
+    axios.get(url).then((response) => {
+      //   console.log(response.data.results);
       setmovies(response.data.results);
     });
-  }, []);
+  }, [url]);
 
   const handleMovies = (id) => {
     console.log(id);
-    axios.get(`/movie/${id}/videos?api_key=${API_KEY}&language=en-US`).then((response)=>{
-        if(response.data.results.length!==0)
-        {
-            setUrlId(response.data.results[0])
-        }else
-        {
-            console.log(response.data.results[0]);
-            console.log("Trailer Not Available");
-        }
+    axios.get(`/movie/${id}/videos?api_key=${API_KEY}&language=en-US`).then((response) => {
+      if (response.data.results.length !== 0) {
+        setUrlId(response.data.results[0])
+      } else {
+        console.log(response.data.results[0]);
+        console.log("Trailer Not Available");
+      }
     })
   };
 
@@ -51,7 +49,7 @@ function RowPost(props) {
           />
         ))}
       </div>
-     {UrlId && <YouTube videoId={UrlId.key} opts={opts} />}
+      {UrlId && <YouTube videoId={UrlId.key} opts={opts} />}
     </div>
   );
 }
